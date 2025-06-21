@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Feedback Annotator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo-container">
+          <img src="/icons/logo-tbig.png" alt="Icon" class="logo" />
+          <h1>Feedback Annotator</h1>
+        </div>
+        <p>Easily provide direct feedback on web pages</p>
+      </div>
+
+      <div class="content">
+        <!-- Role Selection Section -->
+        <div class="role-selection" id="role-selection">
+          <div class="role-title">Choose Your Role</div>
+          <div class="role-options">
+            <div class="role-option" data-role="user">
+              <div class="role-icon">
+                <svg
+                  data-icon-name="user-2"
+                  data-style="line"
+                  icon_origin_id="24292"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="user-2"
+                  class="icon line"
+                  width="24"
+                  height="24"
+                >
+                  <path
+                    style="
+                      fill: none;
+                      stroke: rgb(0, 0, 0);
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 1.5;
+                    "
+                    d="M16,7a4,4,0,1,1-4-4A4,4,0,0,1,16,7Zm0,8H8a4,4,0,0,0-4,4H4a2,2,0,0,0,2,2H18a2,2,0,0,0,2-2h0A4,4,0,0,0,16,15Z"
+                    id="primary"
+                  ></path>
+                </svg>
+              </div>
+              <div class="role-info">
+                <div class="role-name">User</div>
+                <div class="role-desc">Providing feedback</div>
+              </div>
+            </div>
+            <div class="role-option" data-role="developer">
+              <div class="role-icon">
+                <svg
+                  data-icon-name="gamepad"
+                  data-style="line"
+                  icon_origin_id="16565"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="gamepad"
+                  class="icon line"
+                  width="24"
+                  height="24"
+                >
+                  <path
+                    style="
+                      fill: none;
+                      stroke: rgb(0, 0, 0);
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 1.5;
+                    "
+                    d="M8.94,13a1,1,0,0,0-1,.79l-.73,3.39a2.24,2.24,0,0,1-2,1.82A2.12,2.12,0,0,1,3,16.72l.64-9A2.86,2.86,0,0,1,6.38,5,2.75,2.75,0,0,1,8.85,6.46,1,1,0,0,0,9.73,7h4.54a1,1,0,0,0,.88-.54A2.75,2.75,0,0,1,17.62,5a2.86,2.86,0,0,1,2.73,2.72l.64,9A2.12,2.12,0,0,1,18.76,19a2.24,2.24,0,0,1-2-1.82L16,13.79a1,1,0,0,0-1-.79Z"
+                    id="primary"
+                  ></path>
+                </svg>
+              </div>
+              <div class="role-info">
+                <div class="role-name">Developer</div>
+                <div class="role-desc">View user feedback</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Interface (Default) -->
+        <div class="user-interface" id="user-interface" style="display: none">
+          <div class="status-indicator" id="status-indicator">
+            <div class="status-dot"></div>
+            <span id="status-text">Non Active</span>
+          </div>
+
+          <div class="toggle-section">
+            <div class="toggle-info">
+              <div class="toggle-title">Feedback Mode</div>
+              <div class="toggle-desc">Enable to comment</div>
+            </div>
+            <div class="toggle-switch" id="toggle-switch">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+
+          <div class="history-section">
+            <div class="section-header">
+              <h2 class="section-title">
+                <svg
+                  data-icon-name="clipboard-checklist"
+                  data-style="line"
+                  icon_origin_id="15547"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="clipboard-checklist"
+                  class="icon line"
+                  width="24"
+                  height="24"
+                >
+                  <path
+                    style="
+                      fill: none;
+                      stroke: rgb(0, 0, 0);
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 1.5;
+                    "
+                    d="M9,5H6A1,1,0,0,0,5,6V20a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H15"
+                    id="primary"
+                  ></path>
+                  <path
+                    style="
+                      fill: none;
+                      stroke: rgb(0, 0, 0);
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 1.5;
+                    "
+                    d="M15,4a1,1,0,0,0-1-1H10A1,1,0,0,0,9,4V7h6ZM9,14l2,2,4-4"
+                    data-name="primary"
+                    id="primary-2"
+                  ></path>
+                </svg>
+                History Feedback
+              </h2>
+              <div class="flex-buttons">
+                <button class="clear-all-btn" id="clear-all-btn">
+                  <svg
+                    data-icon-name="delete-alt"
+                    data-style="line"
+                    icon_origin_id="20441"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="delete-alt"
+                    class="icon line"
+                    width="16"
+                    height="16"
+                  >
+                    <path
+                      style="
+                        fill: none;
+                        stroke: rgb(255, 255, 255);
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 1.5;
+                      "
+                      d="M4,7H20M16,7V4a1,1,0,0,0-1-1H9A1,1,0,0,0,8,4V7M18,20V7H6V20a1,1,0,0,0,1,1H17A1,1,0,0,0,18,20Zm-8-9v6m4-6v6"
+                      id="primary"
+                    ></path>
+                  </svg>
+                </button>
+                <button class="visible" id="visible">
+                  <svg
+                    data-icon-name="eye-alt"
+                    data-style="line"
+                    icon_origin_id="20464"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="eye-alt"
+                    class="icon line"
+                    width="16"
+                    height="16"
+                  >
+                    <path
+                      style="
+                        fill: none;
+                        stroke: rgb(255, 255, 255);
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2.25;
+                      "
+                      d="M17,12s-2.24,3-5,3-5-3-5-3,2.24-3,5-3S17,12,17,12ZM12,3a9,9,0,1,0,9,9A9,9,0,0,0,12,3Z"
+                      id="primary"
+                    ></path>
+                    <line
+                      style="
+                        fill: none;
+                        stroke: rgb(255, 255, 255);
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2.55;
+                      "
+                      y2="12"
+                      x2="11.95"
+                      y1="12"
+                      x1="12.05"
+                      id="primary-upstroke"
+                    ></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div id="feedback-list">
+              <!-- Feedback items will be populated here -->
+              <div class="empty-state" id="empty-state">
+                <p class="empty-text">No feedback saved yet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer Interface -->
+        <div
+          class="developer-interface"
+          id="developer-interface"
+          style="display: none"
+        >
+          <div class="developer-section">
+            <div class="developer-header">
+              <svg
+                data-icon-name="gamepad"
+                data-style="line"
+                icon_origin_id="16565"
+                viewBox="0 0 22 22"
+                xmlns="http://www.w3.org/2000/svg"
+                id="gamepad"
+                class="icon line"
+                width="22"
+                height="22"
+              >
+                <path
+                  style="
+                    fill: none;
+                    stroke: rgb(0, 0, 0);
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-width: 1.5;
+                  "
+                  d="M8.94,13a1,1,0,0,0-1,.79l-.73,3.39a2.24,2.24,0,0,1-2,1.82A2.12,2.12,0,0,1,3,16.72l.64-9A2.86,2.86,0,0,1,6.38,5,2.75,2.75,0,0,1,8.85,6.46,1,1,0,0,0,9.73,7h4.54a1,1,0,0,0,.88-.54A2.75,2.75,0,0,1,17.62,5a2.86,2.86,0,0,1,2.73,2.72l.64,9A2.12,2.12,0,0,1,18.76,19a2.24,2.24,0,0,1-2-1.82L16,13.79a1,1,0,0,0-1-.79Z"
+                  id="primary"
+                ></path>
+              </svg>
+              <span>Developer Access</span>
+            </div>
+
+            <div class="employee-input-section">
+              <label for="employee-number" class="input-label"
+                >Developer Employee No.</label
+              >
+              <input
+                type="text"
+                id="employee-number"
+                class="employee-input"
+                placeholder="Enter employee number"
+                maxlength="10"
+              />
+              <button class="check-feedback-btn" id="check-feedback-btn">
+                <svg
+                  data-icon-name="search-alt"
+                  data-style="line"
+                  icon_origin_id="20597"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="search-alt"
+                  class="icon line"
+                  width="16"
+                  height="16"
+                >
+                  <path
+                    style="
+                      fill: none;
+                      stroke: rgb(255, 255, 255);
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 2.25;
+                    "
+                    d="M18,10.5A7.5,7.5,0,1,1,10.5,3,7.5,7.5,0,0,1,18,10.5ZM21,21l-5.2-5.2"
+                    id="primary"
+                  ></path>
+                </svg>
+                <span style="margin-left: 5px">Check Feedback from User</span>
+              </button>
+            </div>
+
+            <!-- Developer Feedback View -->
+            <div
+              class="developer-feedback-section"
+              id="developer-feedback-section"
+              style="display: none"
+            >
+              <div class="section-header">
+                <h2 class="section-title">
+                  <svg
+                    data-icon-name="user-2"
+                    data-style="line"
+                    icon_origin_id="24292"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="user-2"
+                    class="icon line"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      style="
+                        fill: none;
+                        stroke: rgb(0, 0, 0);
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 1.5;
+                      "
+                      d="M16,7a4,4,0,1,1-4-4A4,4,0,0,1,16,7Zm0,8H8a4,4,0,0,0-4,4H4a2,2,0,0,0,2,2H18a2,2,0,0,0,2-2h0A4,4,0,0,0,16,15Z"
+                      id="primary"
+                    ></path>
+                  </svg>
+                  User Feedback
+                </h2>
+                <div class="feedback-stats" id="feedback-stats">
+                  <span class="stat-item">Total: <strong>0</strong></span>
+                </div>
+              </div>
+
+              <div id="developer-feedback-list">
+                <!-- Developer feedback view will be populated here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back Button (for both interfaces) -->
+        <div class="back-section" id="back-section" style="display: none">
+          <button class="back-btn" id="back-btn">
+            <svg
+              data-icon-name="left-arrow"
+              data-style="line"
+              icon_origin_id="11972"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              id="left-arrow"
+              class="icon line"
+              width="16"
+              height="16"
+            >
+              <path
+                style="
+                  fill: none;
+                  stroke: rgb(75, 75, 75);
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2.25;
+                "
+                d="M21,12H3M6,9,3,12l3,3"
+                id="primary"
+              ></path>
+            </svg>
+            <span style="margin-left: 5px">Back to Role Selection</span>
+          </button>
+        </div>
+
+        <div class="footer">TBIG Icon 2025 — by Salim 💀</div>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
